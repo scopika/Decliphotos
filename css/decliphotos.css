@@ -1,0 +1,29 @@
+.clearfix:after {content: "."; display: block; clear: both; visibility: hidden;	line-height: 0;	height: 0;}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+
+#bloc_description .entete_liste_config {clear:both}
+.blocs_pliants_photo .lignesimple {height:auto;}
+.decliphotos ul.lignesimple{float:none; height:auto;}
+.decliphotos .cellule {/*float:none*/}
+
+
+.decliphotos .accordion-wrapper {clear:left;}
+.decliphotos .accordion-item {border-bottom:1px dotted #aaa; background:#ebedee; clear:both}
+.decliphotos .accordion-item:nth-child(even) {background:#D4DADD}
+.decliphotos .accordion-toggle {display:block; line-height:30px; background:url(../img/arrow-down.gif) no-repeat 4px 50%; color:#3B4B5B; font-weight:bold; font-size:1em; padding:0 0 0 20px; margin:0; outline:none; text-decoration:none}
+.decliphotos .accordion-toggle:hover {text-decoration:underline}
+.decliphotos .opened .accordion-toggle {background-image:url(../img/arrow-up.gif)}
+.decliphotos .accordion-deroulant {padding:0 10px 10px 10px}
+
+.decliphotos fieldset {border-width:2px 0 0 2px; border-style: solid}
+.decliphotos fieldset legend {font-weight:bold; background:#D0D7DB; border:2px solid #aaa; padding:2px 5px}
+.decliphotos .photoform {clear:left; border-left:2px solid #aaa; margin:10px 0; padding:5px; background:#D0D7DB}
+.decliphotos .accordion-item:nth-child(even) .photoform {background:#ebedee}
+.decliphotos .preview {margin-left:325px; width:225px; text-align:right}
+.decliphotos .fields{float:left; width:320px}
+.decliphotos .field label{float:left; width:100px;}
+.decliphotos .field input, .decliphotos .field textarea {width:200px}
+.decliphotos .photoform p.actions {text-align:right}
+.decliphotos .photoform p.actions a.supprimer {color:red;}

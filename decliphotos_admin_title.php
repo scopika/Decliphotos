@@ -1,0 +1,1 @@
+<link href="../client/plugins/decliphotos/css/decliphotos.css" rel="stylesheet" type="text/css" />

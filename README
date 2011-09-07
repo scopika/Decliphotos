@@ -1,0 +1,109 @@
+Ce plugin permet d'associer des photos aux valeurs d'une déclinaison (declidisp) : 
+- soit de manière globale, via l'interface de gestion des déclinaisons
+- soit de manière plus fine sur chaque fiche produit 
+Dans les 2 cas, il est également possible d'associer des images différentes en fonction de la langue.
+
+
+>> Installation
+Veuillez simplement glisser le répertoire decliphotos dans le dossier client/plugins/ de votre Thelia.
+Après installation, vérifiez que les dossiers suivants sont bien inscriptibles :
+- client/gfx/photos/declidisp et
+- client/cache/declidisp
+
+
+>> Boucle DECLIPHOTOS : Params entrée
+La boucle reprend quelques paramètres de la boucle IMAGE (http://wiki.thelia.net/index.php/La_boucle_IMAGE), 
+et rajoute d'autres paramètres propres au plugin.  
+- produit : (voir wiki)
+- num : (voir wiki)
+- debut : (voir wiki)
+- largeur : largeur de l'image. On peut passer plusieurs valeurs, séparées par des virgules, si l'on souhaites plusieurs versions de l'image. (voir exemple ci-après)
+- hauteur : hauteur de l'image. Plusieurs valeurs possibles. 
+- opacite : opacité de l'image. Plusieurs valeurs possibles.
+- noiretblanc : convertir l'image en N&B. Plusieurs valeurs possibles.
+- miroir : reflet de l'image. Plusieurs valeurs possibles.
+- [facultatif] declidisp : id de la déclidisp
+- [facultatif] declinaison : id de la déclinaison
+- [facultatif] lang : forcer l'utilisation d'une langue particulière. Par défaut, la langue courante est utilisée
+- [facultatif] fallback   : Continue la recherche avec un paramètre en moins, si aucun résultat n'est trouvé. Voir exemple ci-après.
+- [facultatif] classement  (id, idinv, manuelinv, aleatoire, ou manuel par défaut) : tri des résultats
+ATTENTION : Au moins un des 3 paramètres produit, declidisp, ou declinaison doit être transmis à la boucle
+
+
+>> Boucle DECLIPHOTOS : Params sortie
+#ID : id de l'image
+#TITRE : titre de l'image
+#CHAPO : chapo de l'image
+#DESCRIPTION : description de l'image
+#IMAGE : URL de l'image transformée (redimensionnée, inversée, etc)
+#FICHIER : URL de l'image originale
+#PRODUIT : id produit (0 si aucun produit associé)
+#DECLIDISP : id de la declidisp
+#DECLIDISPTITRE : titre de la declidisp
+#DECLINAISON : id de la déclinaison
+#DECLITITRE : titre de la déclinaison
+#DECLICHAPO : chapo de la déclinaison
+#DECLIDESCRIPTION : description de la déclinaison 
+#COMPT : compteur incrémental
+#TOTAL : nombre total de résultats
+
+
+>> Exemples de boucles
+Les images de la declidisp n°4  
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4">
+	#IMAGE
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant (avec redimensionnement en 200px de large)
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4" produit="#PRODUIT_ID" largeur="200">
+	#IMAGE
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant 
+-avec redimensionnement en 200px de large
+-la même image avec un redimensionnement de 150px de large
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4" produit="#PRODUIT_ID" largeur="200,150">
+    #IMAGE <= image de 200px de large
+    #2_IMAGE <= image de 150px de large
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant 
+-avec redimensionnement en 200px de large
+-la même image avec un redimensionnement de 150px en hauteur
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4" produit="#PRODUIT_ID" largeur="200" hauteur="0,150">
+    #IMAGE <= largeur=200px max.
+    #2_IMAGE <= hauteur=150px max.
+</THELIA_IMG>
+
+La première image d'une valeur de la déclinaison n°5 sur le produit courant (avec redimensionnement en 200px de large)
+<THELIA_IMG type="DECLIPHOTOS" declinaison="5" produit="#PRODUIT_ID" largeur="200" num="1">
+    #IMAGE
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant en langue anglaise (langue n°2), 
+ou sinon sur le produit courant dans la langue par défaut (langue n°1)
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4" produit="#PRODUIT_ID" lang="2" fallback="-lang">
+    #IMAGE
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant dans la langue courante, 
+ou sinon sur la declidisp elle-même
+<THELIA_IMG type="DECLIPHOTOS" declidisp="4" produit="#PRODUIT_ID" fallback="-produit">
+    #IMAGE
+</THELIA_IMG>
+
+Les images de la declidisp n°4 sur le produit courant en langue anglaise (langue n°2), 
+ou sinon sur le produit courant dans la langue par défaut (langue n°1), 
+ou sinon sur la declidisp en anglais,
+ou sinon sur la declidisp dans la langue par défaut
+<THELIA_IMG type="DECLIPHOTOS" declidisp="3" produit="#PRODUIT_ID" lang="2" fallback="-lang|-produit|-produit,-lang">
+    #IMAGE
+</THELIA_IMG>
+
+>> Log version:
+@todo : multilinguisme
+@todo : mise en cache des requêtes via CacheBase::getCache()->mysql_query($sql, $this->link);
+@todo : suppression des instanciations pour récupérer le nom des tables au profit d'accès statiques (ex : Produits::TABLE)
+
+
+>> Auteur : scopika.com
