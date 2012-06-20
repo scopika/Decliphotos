@@ -227,8 +227,8 @@ class Decliphotos extends PluginsClassiques{
 			$temp = str_replace("#PRODUIT", $row->declidispdesc_prod, $temp);
 
 			// declidisp : #DECLIDISP et #DECLIDISPTITRE
+            $temp = str_replace("#DECLIDISPTITRE",$row->declidisptitre,$temp);
 			$temp = str_replace("#DECLIDISP",$row->declidisp,$temp);
-			$temp = str_replace("#DECLIDISPTITRE",$row->declidisptitre,$temp);
 
 			// déclinaison : #DECLINAISON, #DECLITITRE, #DECLICHAPO, #DECLIDESCRIPTION
 			$temp = str_replace("#DECLINAISON",$row->declinaison,$temp);
